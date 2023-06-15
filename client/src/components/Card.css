@@ -1,0 +1,80 @@
+.Card {
+    width: 500px;
+    background-color: #f6fdc6;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Card-image {
+    width: 160px;
+    height: 160px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.Card-content {
+    max-width: 320px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.Card-name {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.card_description {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.card_price {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.card-delete {
+    display: none;
+}
+
+.Card-hidden {
+    display: none;
+}
+
+.popup {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 20px;
+}
+
+.popup form {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup input {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.popup-buttons button {
+    margin-left: 10px;
+}
+
+.popup textarea {
+    height: 120px;
+    margin-bottom: 10px;
+}

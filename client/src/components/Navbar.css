@@ -1,0 +1,29 @@
+#Navbar {
+    list-style-type: circle;
+    margin: 0 0 0;
+    padding-left: 40%;
+    overflow: auto;
+    background: #a9f7ff;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.Navbar-list {
+    float: left;
+    padding: 0 100px 5px 10px;
+    font: 30px "Tahoma", serif;
+    font-weight: bold;
+    text-align: left;
+    color: #0800B9FF;
+}
+
+.Navbar-list a:hover {
+    background-color: #23a4fc;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.Navbar-active {
+    background-color: #23a4fc;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}

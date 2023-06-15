@@ -1,0 +1,82 @@
+#Header-whole {
+    text-align: center;
+    background: linear-gradient(#eaf8fa 10%, #a9f7ff 90%);
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    display: flex;
+}
+
+#Header-left {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+#Header-right {
+    text-align: right;
+    max-width: 200px;
+    flex: 1;
+}
+
+#Header-left h1 {
+    padding: 0 25px 0 25px;
+    margin: 5px 25px 5px 25px;
+}
+
+#Header-right img {
+    pointer-events: none;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+    float: left;
+}
+
+#Header-right p {
+    position: absolute;
+    top: 30px;
+    left: 135px;
+}
+
+.react-logo {
+    height: 10vmin;
+    position: absolute;
+    top: 22px;
+    left: 10px;
+}
+
+.redux-logo {
+    height: 10vmin;
+    position: absolute;
+    top: 22px;
+    left: 150px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .react-logo {
+        animation: logo-spin infinite 20s linear;
+    }
+
+    .redux-logo {
+        animation: logo-float infinite 3s ease-in-out;
+    }
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes logo-float {
+    0% {
+        transform: translateY(-5px);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+    100% {
+        transform: translateY(-5px);
+    }
+}
