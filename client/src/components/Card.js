@@ -1,9 +1,10 @@
 import './Card.css';
 import React, {useState} from "react";
 import default_img from "../default.png";
-import {deleteItem, expandItem, compressItem, editItem} from "../actions";
-import {useDispatch, useSelector} from "react-redux";
+import {expandItem, compressItem, deleteItem} from "../redux/reducers/InventoryReducer";
+import {useDispatch} from "react-redux";
 import Popup from "reactjs-popup";
+import {updateItemAsync} from "../redux/thunks";
 
 export default function Card(props) {
     const dispatch = useDispatch();
@@ -17,7 +18,9 @@ export default function Card(props) {
         imageURL: props.img
     });
     const handleSave = () => {
-        dispatch(editItem(popupForm));
+        const updatedItem = { id: props.id, ...popupForm}
+        console.log(updatedItem);
+        dispatch(updateItemAsync(updatedItem));
     };
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -26,36 +29,24 @@ export default function Card(props) {
             [name]: value
         }));
     };
+    const isDefaultImg = (props.img==="none" || props.img==="");
 
-    if (props.img==="none" || props.img==="") {
-        return (
+    return (
             <div className={cardClassName}>
-                <img src={default_img} alt="default image" className="Card-image"/>
+                {isDefaultImg?
+                    <img src={default_img} alt="default image" className="Card-image"/> :
+                    <img src={props.img} alt={props.name} className="Card-image"/>}
                 <div className="Card-content">
-                    <h2 className="Card-name">{props.name + "(Default Image)"}</h2>
+                    {isDefaultImg?
+                        <h2 className="Card-name">{props.name + "(Default Image)"}</h2> :
+                        <h2 className="Card-name">{props.name}</h2>}
                     <p className={cardDesClassName}>{props.description}</p>
                     <p className={cardPriClassName}>${props.price}</p>
                 </div>
                 <div className="Card-button">
-                    <button type="button" onClick={() => dispatch(deleteItem(props.name))}>Delete</button>
-                    <button type="button" onClick={() => dispatch(expandItem(props.name))}>Expand</button>
-                    <button type="button" onClick={() => dispatch(compressItem(props.name))}>Compress</button>
-                </div>
-            </div>
-        );
-    } else {
-        return (
-            <div className={cardClassName}>
-                <img src={props.img} alt={props.name} className="Card-image"/>
-                <div className="Card-content">
-                    <h2 className="Card-name">{props.name}</h2>
-                    <p className={cardDesClassName}>{props.description}</p>
-                    <p className={cardPriClassName}>${props.price}</p>
-                </div>
-                <div className="Card-button">
-                    <button type="button" onClick={() => dispatch(deleteItem(props.name))}>Delete</button>
-                    <button type="button" onClick={() => dispatch(expandItem(props.name))}>Expand</button>
-                    <button type="button" onClick={() => dispatch(compressItem(props.name))}>Compress</button>
+                    <button type="button" onClick={() => dispatch(deleteItem(props.id))}>Delete</button>
+                    <button type="button" onClick={() => dispatch(expandItem(props.id))}>Expand</button>
+                    <button type="button" onClick={() => dispatch(compressItem(props.id))}>Compress</button>
                     <Popup
                         trigger={<button>Edit</button>}
                         modal
@@ -108,5 +99,4 @@ export default function Card(props) {
                 </div>
             </div>
         );
-    }
 }

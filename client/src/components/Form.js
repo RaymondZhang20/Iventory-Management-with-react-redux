@@ -1,9 +1,12 @@
 import './Form.css';
-import {addItem, clearForm, deleteAllItems, restoreAllItems} from "../actions";
+import {clearForm} from "../redux/actions";
+import {deleteAll, restoreAll} from "../redux/reducers/InventoryReducer";
 import {useDispatch, useSelector} from "react-redux";
+import {addItemAsync, deleteItemAsync} from "../redux/thunks";
 
 export default function Form() {
     const form = useSelector(state => state.form).form;
+    const inventory = useSelector(state => state.inv).items;
     const dispatch = useDispatch();
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,12 +21,20 @@ export default function Form() {
             "itemName": form.itemName,
             "description": form.itemDescription,
             "price": form.itemPrice,
-            "imageURL": form.itemImage,
-            "deleted": false,
-            "detailed": false
+            "imageURL": form.itemImage
         };
-        dispatch(addItem(newItem));
+        dispatch(addItemAsync(newItem));
         dispatch(clearForm());
+    }
+
+    function confirmDelete() {
+        if (inventory !== undefined) {
+            inventory.forEach((item) => {
+                if (item.deleted === true) {
+                    dispatch(deleteItemAsync(item.id));
+                }
+            });
+        }
     }
 
     return (
@@ -43,8 +54,9 @@ export default function Form() {
             <div className="Form-button">
                 <button type="submit">Add Item</button>
                 <button type="button" onClick={() => dispatch(clearForm())}>Clear</button>
-                <button type="button" onClick={() => dispatch(deleteAllItems())}>Delete All</button>
-                <button type="button" onClick={() => dispatch(restoreAllItems())}>Restore All</button>
+                <button type="button" onClick={() => dispatch(deleteAll())}>Delete All</button>
+                <button type="button" onClick={() => dispatch(restoreAll())}>Restore All</button>
+                <button type="button" onClick={confirmDelete}>Confirm Deletion</button>
             </div>
         </form>
     );

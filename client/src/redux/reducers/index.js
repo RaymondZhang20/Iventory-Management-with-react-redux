@@ -1,10 +1,13 @@
 import { combineReducers } from 'redux';
 import navbar from "./NavbarClick";
-import form from "./FormButtons";
-import card from "./CardButtons";
+import form from "./FormReducer";
+import inv from "./InventoryReducer";
 
 const rootReducer = combineReducers({
-    navbar, form, card
+    navbar: navbar,
+    form: form,
+    inv: inv
 });
+
 
 export default rootReducer;

@@ -1,7 +1,9 @@
 import './Page.css';
 import Form from "./Form";
 import Card from "./Card";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {getInvAsync} from "../redux/thunks";
 
 export function HomePage() {
     const res = useSelector(state => state.navbar);
@@ -18,13 +20,17 @@ export function HomePage() {
 }
 
 function InvList() {
-    const data = useSelector(state => state.form).items;
+    const data = useSelector(state => state.inv).items;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getInvAsync());
+    }, [dispatch]);
     return (
         <div id="HomePage-inv">
             <h1>Inventory</h1>
             <div id="HomePage-list">
                 {data.map((data, index) => (
-                        <Card key={index} name={data.itemName} description={data.description}
+                        <Card key={index} name={data.itemName} description={data.description} id={data.id}
                               price={data.price} img={data.imageURL} deleted={data.deleted}  detailed={data.detailed}/>
                     ))}
             </div>

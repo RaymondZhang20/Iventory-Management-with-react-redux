@@ -1,6 +1,6 @@
 import './Navbar.css';
 import {useSelector, useDispatch} from 'react-redux';
-import {navToHome, navToAbout} from "../actions";
+import {navToHome, navToAbout} from "../redux/actions";
 
 export default function Navbar() {
     const dispatch = useDispatch();
