@@ -8,6 +8,27 @@ export const getInvAsync = createAsyncThunk(
     }
 );
 
+export const getArtistsAsync = createAsyncThunk(
+    "users/getArtists",
+    async () => {
+        return await DataService.getArtists();
+    }
+);
+
+export const sortInvAsync = createAsyncThunk(
+    "users/sortInv",
+    async () => {
+        return await DataService.sortInventory();
+    }
+);
+
+export const filterInvAsync = createAsyncThunk(
+    "users/filterInv",
+    async (query) => {
+        return await DataService.filterInventory(query);
+    }
+);
+
 export const addItemAsync = createAsyncThunk(
     "users/addItem",
     async (item) => {

@@ -4,7 +4,8 @@ const initialState = {
         itemName: "",
         itemDescription: "",
         itemPrice: "",
-        itemImage: ""
+        itemImage: "",
+        itemArtist: ""
     }
 };
 

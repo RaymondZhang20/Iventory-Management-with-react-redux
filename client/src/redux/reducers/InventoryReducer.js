@@ -1,13 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getInvAsync, addItemAsync, deleteItemAsync, updateItemAsync} from "../thunks";
+import {getInvAsync, addItemAsync, deleteItemAsync, updateItemAsync, sortInvAsync, getArtistsAsync, filterInvAsync} from "../thunks";
 import {REQUEST_STATE} from "../utils";
 
 export const initialState = {
     items: [],
+    artists: [],
     getInv: REQUEST_STATE.IDLE,
+    getArtists: REQUEST_STATE.IDLE,
     addItem: REQUEST_STATE.IDLE,
     deleteItem: REQUEST_STATE.IDLE,
     updateItem: REQUEST_STATE.IDLE,
+    filterInv: REQUEST_STATE.IDLE,
     error: null
 };
 
@@ -17,7 +20,7 @@ const inventorySlice = createSlice({
     reducers: {
         expandItem: (state, action) => {
             state.items = state.items.map((item) => {
-                if (item.id === action.payload) {
+                if (item._id === action.payload) {
                     return {...item, detailed:true}
                 }
                 return item;
@@ -25,7 +28,7 @@ const inventorySlice = createSlice({
         },
         compressItem: (state, action) => {
             state.items = state.items.map((item) => {
-                if (item.id === action.payload) {
+                if (item._id === action.payload) {
                     return {...item, detailed:false}
                 }
                 return item;
@@ -33,7 +36,7 @@ const inventorySlice = createSlice({
         },
         deleteItem: (state, action) => {
             state.items = state.items.map((item) => {
-                if (item.id === action.payload) {
+                if (item._id === action.payload) {
                     return {...item, deleted:true}
                 }
                 return item;
@@ -67,6 +70,36 @@ const inventorySlice = createSlice({
                 state.getInv = REQUEST_STATE.REJECTED;
                 state.error = action.error;
             })
+            .addCase(sortInvAsync.pending, (state) => {
+                console.log("sort inv pending");
+                state.getInv = REQUEST_STATE.PENDING;
+                state.error = null;
+            })
+            .addCase(sortInvAsync.fulfilled, (state, action) => {
+                console.log("sort inv fulfilled");
+                state.getInv = REQUEST_STATE.FULFILLED;
+                state.items = action.payload;
+            })
+            .addCase(sortInvAsync.rejected, (state, action) => {
+                console.log("sort inv rejected" + action.error);
+                state.getInv = REQUEST_STATE.REJECTED;
+                state.error = action.error;
+            })
+            .addCase(filterInvAsync.pending, (state) => {
+                console.log("filter inv pending");
+                state.filterInv = REQUEST_STATE.PENDING;
+                state.error = null;
+            })
+            .addCase(filterInvAsync.fulfilled, (state, action) => {
+                console.log("filter inv fulfilled");
+                state.filterInv = REQUEST_STATE.FULFILLED;
+                state.items = action.payload;
+            })
+            .addCase(filterInvAsync.rejected, (state, action) => {
+                console.log("filter inv rejected" + action.error);
+                state.filterInv = REQUEST_STATE.REJECTED;
+                state.error = action.error;
+            })
             .addCase(addItemAsync.pending, (state) => {
                 console.log("add item pending");
                 state.addItem = REQUEST_STATE.PENDING;
@@ -91,10 +124,10 @@ const inventorySlice = createSlice({
             .addCase(deleteItemAsync.fulfilled, (state, action) => {
                 console.log("delete item fulfilled");
                 state.deleteItem = REQUEST_STATE.FULFILLED;
-                const itemId = action.payload.id;
+                const itemId = action.payload._id;
                 // const itemIndex = state.items.findIndex((item) => item.id === itemId);
                 // state.items.splice(itemIndex, 1);
-                state.items = state.items.filter(item => item.id !== itemId);
+                state.items = state.items.filter(item => item._id !== itemId);
             })
             .addCase(deleteItemAsync.rejected, (state, action) => {
                 console.log("delete item rejected" + action.error);
@@ -110,9 +143,9 @@ const inventorySlice = createSlice({
             .addCase(updateItemAsync.fulfilled, (state, action) => {
                 console.log("update item fulfilled");
                 state.updateItem = REQUEST_STATE.FULFILLED;
-                const itemId = action.payload.id;
+                const itemId = action.payload._id;
                 state.items = state.items.map((item) => {
-                    if (item.id === itemId) {
+                    if (item._id === itemId) {
                         return {...item, ...action.payload};
                     } else {
                         return item;
@@ -124,6 +157,21 @@ const inventorySlice = createSlice({
                 state.updateItem = REQUEST_STATE.REJECTED;
                 state.error = action.error;
                 console.log(state.error);
+            })
+            .addCase(getArtistsAsync.pending, (state) => {
+                console.log("get artists pending");
+                state.getArtists = REQUEST_STATE.PENDING;
+                state.error = null;
+            })
+            .addCase(getArtistsAsync.fulfilled, (state, action) => {
+                console.log("get artists fulfilled");
+                state.getArtists = REQUEST_STATE.FULFILLED;
+                state.artists = action.payload;
+            })
+            .addCase(getArtistsAsync.rejected, (state, action) => {
+                console.log("get artists rejected" + action.error);
+                state.getArtists = REQUEST_STATE.REJECTED;
+                state.error = action.error;
             });
     },
 });

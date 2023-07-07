@@ -1,4 +1,3 @@
-// import data from "../data/inventory.json";
 var express = require('express');
 var router = express.Router();
 const { v4: uuid } = require('uuid');
@@ -8,7 +7,7 @@ var data = [
     "id": uuid(),
     "itemName": "Parachutes",
     "description": "\"Parachutes\" is the debut studio album by British rock band Coldplay. It was released on 10 July 2000 by Parlophone in the United Kingdom. The album was produced by the band and British record producer Ken Nelson, except for one track, \"High Speed\", which was produced by Chris Allison. Parachutes has spawned the singles \"Shiver\", \"Yellow\", \"Trouble\", and \"Don't Panic\".",
-    "price": 10.99,
+    "price": 30.99,
     "imageURL": "https://m.media-amazon.com/images/I/61XGRcPbr4L._UF1000,1000_QL80_.jpg"
   },
   {
@@ -27,9 +26,13 @@ var data = [
   }
 ]
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   return res.send(data);
+});
+
+router.get('/sort', function(req, res, next) {
+  const sortedItems = data.sort((a, b) => a.price - b.price);
+  return res.send(sortedItems);
 });
 
 router.post('/newItem', function (req, res, next) {

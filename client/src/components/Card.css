@@ -28,6 +28,18 @@
     margin-bottom: 5px;
 }
 
+.Card-artist {
+    font-size: 22px;
+    color: #0175ff;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.Card-artist:hover {
+    color: #4600ff;
+    text-shadow: 2px 2px 5px #6eb8fd;
+}
+
 .card_description {
     font-size: 16px;
     color: #777;
