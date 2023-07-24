@@ -37,7 +37,7 @@ export default function Card(props) {
     let defaultImgURL = 'http://localhost:4000/defaultImg';
 
     return (
-            <div className={cardClassName}>
+            <div className={cardClassName} data-testid="Card">
                 {isDefaultImg?
                     // <img src={default_img} alt="default image" className="Card-image"/> :
                     <img src={defaultImgURL} alt="default image" className="Card-image"/> :

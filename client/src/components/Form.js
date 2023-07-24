@@ -57,19 +57,19 @@ export default function Form() {
     return (
         <form id="Form" onSubmit={handleSubmit}>
             <label htmlFor="From-name">Name:</label>
-            <input type="text" id="From-name" name="itemName" value={form.itemName} onChange={handleChange} required/>
+            <input type="text" data-testid="From-name" id="From-name" name="itemName" value={form.itemName} onChange={handleChange} required/>
 
             <label htmlFor="From-description">Description:</label>
-            <textarea id="From-description" name="itemDescription" value={form.itemDescription} onChange={handleChange} required></textarea>
+            <textarea data-testid="From-description" id="From-description" name="itemDescription" value={form.itemDescription} onChange={handleChange} required></textarea>
 
             <label htmlFor="From-price">Price:</label>
-            <input type="number" id="From-price" name="itemPrice" value={form.itemPrice} step="0.01" onChange={handleChange} required/>
+            <input type="number" data-testid="From-price" id="From-price" name="itemPrice" value={form.itemPrice} step="0.01" onChange={handleChange} required/>
 
             <label htmlFor="From-image">Image URL:(empty if no image)</label>
-            <input type="url" id="From-image" name="itemImage" value={form.itemImage} onChange={handleChange}/>
+            <input type="url" data-testid="From-image" id="From-image" name="itemImage" value={form.itemImage} onChange={handleChange}/>
 
             <label>Artist:</label>
-            <DropdownSelect options={artistList} id="From-artist" name="itemArtist" onChange={handleArtistChange} values={selectedArtist ? [selectedArtist] : []}/>
+            <DropdownSelect data-testid="From-artist" options={artistList} id="From-artist" name="itemArtist" onChange={handleArtistChange} values={selectedArtist ? [selectedArtist] : []}/>
 
             <div className="Form-button">
                 <button type="submit">Add Item</button>

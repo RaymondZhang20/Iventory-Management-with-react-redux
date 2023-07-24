@@ -10,7 +10,7 @@ const mongoAtlasUri =
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var albumsRouter = require('./routes/albums');
+var {albumsRouter} = require('./routes/albums');
 var artistsRouter = require('./routes/artists');
 
 var app = express();

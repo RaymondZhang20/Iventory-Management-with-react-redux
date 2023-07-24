@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+var albumsRouter = express.Router();
 const Album = require('../models/album');
 
 async function getAlbum(req, res, next) {
@@ -16,16 +16,16 @@ async function getAlbum(req, res, next) {
     next();
 }
 
-router.get('/', async function(req, res, next) {
+async function getAllAlbums(req, res, next) {
     try {
         const albums = await Album.find().populate({path:'artist',select:'_id artistName'});
         res.json(albums);
     } catch (err) {
         res.status(500).json({message: err.message});
     }
-});
+}
 
-router.get('/sorted', async function(req, res, next) {
+async function getSorted(req, res, next) {
     try {
         const albums = await Album.find().populate({path:'artist',select:'_id artistName'});
         const sortedItems = albums.sort((a, b) => a.price - b.price);
@@ -33,9 +33,9 @@ router.get('/sorted', async function(req, res, next) {
     } catch (err) {
         res.status(500).json({message: err.message});
     }
-});
+}
 
-router.get('/filtered', async function(req, res, next) {
+async function getFiltered(req, res, next) {
     try {
         const filter = req.query.artists.split(',').map(a => {
             return a===""? {artist: null}: {artist: a};
@@ -48,13 +48,9 @@ router.get('/filtered', async function(req, res, next) {
     } catch (err) {
         res.status(500).json({message: err.message});
     }
-});
+}
 
-router.get('/:id', getAlbum, function(req, res, next) {
-    res.json(res.album);
-});
-
-router.patch('/:id', function(req, res, next) {
+function patchAlbum(req, res, next) {
     Album.findByIdAndUpdate(req.params.id, req.body, {returnDocument:'after', runValidators: true}).populate({path:'artist',select:'_id artistName'}).then((album) => {
         if (!album) {
             res.status(404).send('Cannot found the album');
@@ -64,9 +60,9 @@ router.patch('/:id', function(req, res, next) {
     }).catch((err) => {
         res.status(500).json({message: err.message});
     });
-});
+}
 
-router.delete('/:id', function(req, res, next) {
+function deleteAlbum(req, res, next) {
     Album.findByIdAndRemove(req.params.id).then((album) => {
         if (!album) {
             res.status(404).send('Cannot found the album');
@@ -76,9 +72,9 @@ router.delete('/:id', function(req, res, next) {
     }).catch((err) => {
         res.status(500).json({message: err.message});
     });
-});
+}
 
-router.post('/', async function(req, res, next) {
+async function postAlbum(req, res, next) {
     const newAlbum = new Album({
         itemName: req.body.itemName,
         description: req.body.description,
@@ -93,6 +89,22 @@ router.post('/', async function(req, res, next) {
     } catch (err) {
         res.status(400).json({message: err.message});
     }
+}
+
+albumsRouter.get('/', getAllAlbums);
+
+albumsRouter.get('/sorted', getSorted);
+
+albumsRouter.get('/filtered', getFiltered);
+
+albumsRouter.get('/:id', getAlbum, function(req, res, next) {
+    res.json(res.album);
 });
 
-module.exports = router;
+albumsRouter.patch('/:id', patchAlbum);
+
+albumsRouter.delete('/:id', deleteAlbum);
+
+albumsRouter.post('/', postAlbum);
+
+module.exports = {albumsRouter, getAlbum, getAllAlbums, getSorted, getFiltered, patchAlbum, postAlbum, deleteAlbum};
