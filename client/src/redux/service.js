@@ -1,5 +1,8 @@
+const localURI = 'http://localhost:4000';
+const renderURI = 'https://inventory-management-ho3k.onrender.com';
+
 const getInventory = async () => {
-    const response = await fetch('http://localhost:4000/albums', {
+    const response = await fetch(`${renderURI}/albums`, {
         method: 'GET'
     });
     let data = await response.json();
@@ -15,7 +18,7 @@ const getInventory = async () => {
 };
 
 const getArtists = async () => {
-    const response = await fetch('http://localhost:4000/artists', {
+    const response = await fetch(`${renderURI}/artists`, {
         method: 'GET'
     });
     let data = await response.json();
@@ -27,7 +30,7 @@ const getArtists = async () => {
 };
 
 const sortInventory = async () => {
-    const response = await fetch('http://localhost:4000/albums/sorted', {
+    const response = await fetch(`${renderURI}/albums/sorted`, {
         method: 'GET'
     });
     let data = await response.json();
@@ -43,7 +46,7 @@ const sortInventory = async () => {
 };
 
 const filterInventory = async (query) => {
-    const response = await fetch(`http://localhost:4000/albums/filtered?${query}`, {
+    const response = await fetch(`${renderURI}/albums/filtered?${query}`, {
         method: 'GET'
     });
     let data = await response.json();
@@ -59,7 +62,7 @@ const filterInventory = async (query) => {
 };
 
 const addItem = async (item) => {
-    const response = await fetch('http://localhost:4000/albums', {
+    const response = await fetch(`${renderURI}/albums`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -77,7 +80,7 @@ const addItem = async (item) => {
 };
 
 const deleteItem = async (itemId) => {
-    const response = await fetch(`http://localhost:4000/albums/${itemId}`, {
+    const response = await fetch(`${renderURI}/albums/${itemId}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
@@ -93,7 +96,7 @@ const deleteItem = async (itemId) => {
 };
 
 const updateItem = async (item) => {
-    const response = await fetch(`http://localhost:4000/albums/${item._id}`, {
+    const response = await fetch(`${renderURI}/albums/${item._id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
