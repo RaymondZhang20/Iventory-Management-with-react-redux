@@ -4,7 +4,7 @@ import default_img from "../default.png";
 import {expandItem, compressItem, deleteItem} from "../redux/reducers/InventoryReducer";
 import {useDispatch, useSelector} from "react-redux";
 import Popup from "reactjs-popup";
-import {getInvAsync, updateItemAsync} from "../redux/thunks";
+import {updateItemAsync} from "../redux/thunks";
 
 export default function Card(props) {
     const dispatch = useDispatch();
