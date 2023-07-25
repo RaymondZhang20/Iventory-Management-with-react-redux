@@ -24,4 +24,4 @@ jobs:
     - name: Server Test
       run: cd server && npm ci && npm test
     - name: Integration Test(On frontend)
-      run: cd client && npm ci && npm test
+      run: cd client && npm ci --force && npm test
