@@ -31,14 +31,8 @@ describe('add new item Integration Test', () => {
     </Provider>);
     const buttons = screen.getAllByRole('button');
 
-    afterAll(async () => {
+    afterEach(async () => {
         const confirmDeletionButton = Array.from(buttons).find((button) => button.textContent === 'Confirm Deletion');
-        const deleteButtons = await screen.findAllByText("Delete");
-        if (deleteButtons !== null) {
-            deleteButtons.forEach((button) => {
-                fireEvent.click(button);
-            })
-        }
         fireEvent.click(confirmDeletionButton);
     });
 
@@ -77,5 +71,9 @@ describe('add new item Integration Test', () => {
       expect(name).toBeInTheDocument();
       const description = await screen.findByText('This is Test Item 1 created by react-test-library');
       expect(description).toBeInTheDocument();
+      const deleteButton = await screen.findByText("Delete");
+      expect(deleteButton).toBeInTheDocument();
+
+      fireEvent.click(deleteButton);
   })
 });
