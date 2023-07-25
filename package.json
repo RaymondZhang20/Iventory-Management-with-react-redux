@@ -1,0 +1,17 @@
+{
+  "name": "inventory-management",
+  "version": "1.0.0",
+  "description": "inventory management project with react, redux, express and mongoDB",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd server && npm install",
+    "start-server": "cd server && npm run start",
+    "build-server": "cd server && npm build",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm build",
+    "start-client": "cd client && npm run start"
+  },
+  "keywords": [],
+  "author": "Raymond",
+  "license": "ISC"
+}
