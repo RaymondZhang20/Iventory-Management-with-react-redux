@@ -33,15 +33,15 @@ export default function Card(props) {
             [name]: value
         }));
     };
-    const isDefaultImg = (props.img==="none" || props.img==="");
+    const isDefaultImage = (props.img==="none" || props.img==="");
 
     return (
             <div className={cardClassName} data-testid="Card">
-                {isDefaultImg?
+                {isDefaultImage?
                     <img src={default_img} alt="default image" className="Card-image"/> :
                     <img src={props.img} alt={props.name} className="Card-image"/>}
                 <div className="Card-content">
-                    {isDefaultImg?
+                    {isDefaultImage?
                         <h2 className="Card-name">{props.name + "(Default Image)"}</h2> :
                         <h2 className="Card-name">{props.name}</h2>}
                     {props.artist?
