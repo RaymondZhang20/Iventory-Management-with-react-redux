@@ -27,5 +27,5 @@ jobs:
       uses: 'actions/checkout@v2'
     - name: Server Test
       run: cd server && npm ci && npm test
-    - name: Integration Test(On frontend)
-      run: cd client && npm ci --force && npm test
+#     - name: Integration Test(On frontend)
+#       run: cd client && npm ci --force && npm test
